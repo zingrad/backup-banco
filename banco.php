@@ -12,3 +12,4 @@ $config = [
 // Retorna as configurações em formato JSON
 echo json_encode($config);
 ?>
+

@@ -33,7 +33,7 @@ db = config['database']
 project_dir = os.path.dirname(os.path.abspath(__file__))
 
 # Nome do arquivo de backup com data e hora
-backup_file = os.path.join(project_dir, 'backup', f'backup_{datetime.datetime.now().strftime("%Y%m%d_%H%M%S")}_{db}.sql')
+backup_file = os.path.join(project_dir, 'backup', f'producao_{datetime.datetime.now().strftime("%Y%m%d_%H%M%S")}_{db}.sql')
 
 # Verifica se o diretório de backup existe, senão, cria-o
 backup_dir = os.path.dirname(backup_file)
