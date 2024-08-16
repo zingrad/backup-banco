@@ -2,9 +2,8 @@
 // Configurações do banco de dados
 $host = 'localhost';
 $db = 'local_banco';
-// Deixe $user e $pass vazios se não houver autenticação, ou coloque as credenciais corretas
-$user = 'erickgomes123'; // Ou o nome de usuário do MySQL, se houver
-$pass = 'zingradgomes123'; // Ou a senha do MySQL, se houver
+$user = 'root';  // Ajuste conforme necessário
+$pass = '';      // Senha do MySQL, deixe vazio se não houver senha
 
 // Diretório do projeto
 $projectDir = __DIR__;
@@ -18,11 +17,10 @@ if (!is_dir($projectDir . '/backup')) {
 }
 
 // Comando para gerar o backup usando mysqldump
-// Note que a opção --password está vazia se não houver senha
 $command = "\"C:\\xampp\\mysql\\bin\\mysqldump.exe\" --host={$host} --user={$user} --password={$pass} {$db} > \"{$backupFile}\"";
 
 // Executa o comando
-exec($command . " 2>&1", $output, $return_var);
+exec($command, $output, $return_var);
 
 // Verifica se o backup foi criado com sucesso
 if ($return_var === 0) {
