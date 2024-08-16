@@ -1,32 +1,13 @@
-<?php
-// Configurações do banco de dados
-$host = 'localhost';
-$db = 'local_banco';
-$user = 'root';  // Ajuste conforme necessário
-$pass = '';      // Senha do MySQL, deixe vazio se não houver senha
+#!/bin/bash
 
-// Diretório do projeto
-$projectDir = __DIR__;
+# Define o caminho absoluto para o diretório do projeto
+PROJECT_DIR="/c/xampp/htdocs/teste-backup"
+PHP_PATH="/c/xampp/php/php.exe"
+SCRIPT_PATH="$PROJECT_DIR/backup.php"
 
-// Nome do arquivo de backup com data e hora
-$backupFile = $projectDir . '/backup/backup_' . date('Ymd_His') . '.sql';
-
-// Verifica se o diretório de backup existe, senão, cria-o
-if (!is_dir($projectDir . '/backup')) {
-    mkdir($projectDir . '/backup', 0777, true);
-}
-
-// Comando para gerar o backup usando mysqldump
-$command = "\"C:\\xampp\\mysql\\bin\\mysqldump.exe\" --host={$host} --user={$user} --password={$pass} {$db} > \"{$backupFile}\"";
-
-// Executa o comando
-exec($command, $output, $return_var);
-
-// Verifica se o backup foi criado com sucesso
-if ($return_var === 0) {
-    echo "Backup criado com sucesso em: {$backupFile}\n";
-} else {
-    echo "Erro ao criar o backup. Código de retorno: $return_var\n";
-    echo "Saída do comando:\n" . implode("\n", $output) . "\n";
-}
-?>
+# Verifica se o arquivo PHP existe antes de tentar executá-lo
+if [ -f "$SCRIPT_PATH" ]; then
+    "$PHP_PATH" "$SCRIPT_PATH"
+else
+    echo "Erro: O script PHP não foi encontrado em $SCRIPT_PATH"
+fi
