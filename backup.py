@@ -30,13 +30,13 @@ password = config['password']
 db = config['database']
 
 # Diretório do projeto
-project_dir = os.path.dirname(os.path.abspath(__file__))
+backup_dir = os.path.dirname(os.path.abspath(__file__))
 
 # Nome do arquivo de backup com data e hora
-backup_file = os.path.join(project_dir, 'backup', f'producao_{datetime.datetime.now().strftime("%Y%m%d_%H%M%S")}_{db}.sql')
+backup_sql_file = os.path.join(backup_dir, 'backup', f'producao_{datetime.datetime.now().strftime("%Y%m%d_%H%M%S")}_{db}.sql')
 
 # Verifica se o diretório de backup existe, senão, cria-o
-backup_dir = os.path.dirname(backup_file)
+backup_dir = os.path.dirname(backup_sql_file)
 if not os.path.exists(backup_dir):
     os.makedirs(backup_dir)
 
@@ -50,12 +50,12 @@ command = [
 ]
 
 # Executa o comando
-with open(backup_file, 'wb') as f:
-    result = subprocess.run(command, stdout=f, stderr=subprocess.PIPE)
+with open(backup_sql_file, 'wb') as backup_file:
+    result = subprocess.run(command, stdout=backup_file, stderr=subprocess.PIPE)
 
 # Verifica se o backup foi criado com sucesso
 if result.returncode == 0:
-    print(f"Backup criado com sucesso em: {backup_file}")
+    print(f"Backup criado com sucesso em: {backup_sql_file}")
 else:
     print(f"Erro ao criar o backup. Código de retorno: {result.returncode}")
     print("Saída do comando:")
