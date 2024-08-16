@@ -29,4 +29,5 @@ if ($return_var === 0) {
     echo "Erro ao criar o backup. Código de retorno: $return_var\n";
     print_r($output);
 }
+
 ?>
