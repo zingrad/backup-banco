@@ -30,13 +30,13 @@ password = config['password']
 db = config['database']
 
 # Diretório do projeto
-backup_dir = os.path.dirname(os.path.abspath(__file__))
+backup_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'backup')
 
-# Nome do arquivo de backup com data e hora
-backup_sql_file = os.path.join(backup_dir, 'backup', f'producao_{datetime.datetime.now().strftime("%Y%m%d_%H%M%S")}_{db}.sql')
+# Nome do arquivo de backup com data
+backup_filename = f'producao_{datetime.datetime.now().strftime("%Y%m%d")}_{db}.sql'
+backup_sql_file = os.path.join(backup_dir, backup_filename)
 
 # Verifica se o diretório de backup existe, senão, cria-o
-backup_dir = os.path.dirname(backup_sql_file)
 if not os.path.exists(backup_dir):
     os.makedirs(backup_dir)
 
@@ -48,6 +48,10 @@ command = [
     '--password=' + password,
     db
 ]
+
+# Substitui o backup do mesmo dia, se já existir
+if os.path.exists(backup_sql_file):
+    print(f"Backup já existe para o dia de hoje: {backup_sql_file}. Será substituído.")
 
 # Executa o comando
 with open(backup_sql_file, 'wb') as backup_file:
